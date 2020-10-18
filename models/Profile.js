@@ -61,13 +61,16 @@ const ProfileSchema = new mongoose.Schema({
     [
     {
         school: {
-            type: String
+            type: String,
+            required: true
         },
         degree: {
-            type: String
+            type: String,
+            required: true
         },
         fieldofstudy: {
-            type: String
+            type: String,
+            required: true
         },
         from: {
             type: Date,
