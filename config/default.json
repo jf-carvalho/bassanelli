@@ -7,7 +7,7 @@
     "invalidTokenError": "Token inválido.",
     "noTokenError": "Token não localizado. Acesso negado.",
     "noProfileError": "Não existe um perfil associado a este usuário.",
-    "deletedUser": "Usuário deletado.",
     "githubClienteID": "e6a8eef3374346f8b831",
-    "githubSecret": "90a3261294e5e97ce5d58c8271f01a2cddeb7396"
+    "githubSecret": "90a3261294e5e97ce5d58c8271f01a2cddeb7396",
+    "unauthorizedError": "Acesso engado."
 }
