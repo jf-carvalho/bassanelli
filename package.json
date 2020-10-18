@@ -4,7 +4,6 @@
   "description": "Social network to devs",
   "main": "server.js",
   "scripts": {
-    "test": "",
     "server": "nodemon server"
   },
   "author": "João Felipe",

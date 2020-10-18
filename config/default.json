@@ -1,0 +1,11 @@
+{
+    "mongoURI": "mongodb+srv://jfcarvalho4:Crashbandicoot1@merncourse.bv8sk.mongodb.net/MERNCourse?retryWrites=true&w=majority",
+    "jwtSecret": "devcon_secret",
+    "serverError": "Erro interno do servidor.",
+    "invalidAccountError": "Conta de usuário inválida.",
+    "notUniqueUserError": "Já existe uma conta de usuário cadastrada com este email.",
+    "invalidTokenError": "Token inválido.",
+    "noTokenError": "Token não localizado. Acesso negado.",
+    "noProfileError": "Não existe um perfil associado a este usuário.",
+    "deletedUser": "Usuário deletado."
+}
