@@ -4,7 +4,9 @@
   "description": "Social network to devs",
   "main": "server.js",
   "scripts": {
-    "server": "nodemon server"
+    "server": "nodemon server",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "João Felipe",
   "license": "MIT",
