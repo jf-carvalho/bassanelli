@@ -8,7 +8,7 @@ const config = require('config');
 
     // Check if known token
     if(!token){
-        return res.status(401).json({ "msg" : config.get("noTokenError") });
+        return res.status(401).json({ "msg" : config.get("errors.no_token") });
     }
 
     // Verify token
@@ -18,7 +18,7 @@ const config = require('config');
         req.user = decoded.user;
         next();
     }catch(err){
-        res.status('401').json({ "msg" : config.get('invalidTokenError') });
+        res.status('401').json({ "msg" : config.get('errors.invalid_token') });
     }
 
  }

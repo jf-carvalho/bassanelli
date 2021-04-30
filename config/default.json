@@ -1,13 +1,13 @@
 {
-    "mongoURI": "mongodb+srv://jfcarvalho4:Crashbandicoot1@merncourse.bv8sk.mongodb.net/MERNCourse?retryWrites=true&w=majority",
-    "jwtSecret": "devcon_secret",
-    "serverError": "Erro interno do servidor.",
-    "invalidAccountError": "Conta de usuário inválida.",
-    "notUniqueUserError": "Já existe uma conta de usuário cadastrada com este email.",
-    "invalidTokenError": "Token inválido.",
-    "noTokenError": "Token não localizado. Acesso negado.",
-    "noProfileError": "Não existe um perfil associado a este usuário.",
-    "githubClienteID": "e6a8eef3374346f8b831",
-    "githubSecret": "90a3261294e5e97ce5d58c8271f01a2cddeb7396",
-    "unauthorizedError": "Acesso engado."
+    "mongoURI": "mongodb+srv://root:Crashbandicoot1@cluster0.elexc.mongodb.net/Cluster0?retryWrites=true&w=majority",
+    "jwtSecret": "baseapp_secret",
+    "errors": {
+        "server": "Erro interno do servidor.",
+        "invalid_account": "Conta de usuário inválida.",
+        "not_unique_user": "Já existe uma conta de usuário cadastrada com este email.",
+        "invalid_token": "Token inválido.",
+        "no_token": "Token não localizado. Acesso negado.",
+        "no_profile": "Não existe um perfil associado a este usuário.",
+        "unauthorized": "Acesso negado."
+    }
 }

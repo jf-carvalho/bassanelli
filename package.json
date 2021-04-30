@@ -1,25 +1,20 @@
 {
-  "name": "devconnector",
+  "name": "baseapp",
   "version": "1.0.0",
-  "description": "Social network to devs",
+  "description": "Basic CRUD app",
   "main": "server.js",
   "scripts": {
-    "server": "nodemon server",
-    "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "server": "nodemon server"
   },
   "author": "João Felipe",
   "license": "MIT",
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "concurrently": "^5.3.0",
-    "config": "^3.3.2",
+    "config": "^3.3.6",
     "express": "^4.17.1",
-    "express-validator": "^6.6.1",
-    "gravatar": "^1.8.1",
+    "express-validator": "^6.10.1",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.10.9",
-    "nodemon": "^2.0.5",
-    "request": "^2.88.2"
+    "mongoose": "^5.12.7",
+    "nodemon": "^2.0.7"
   }
 }

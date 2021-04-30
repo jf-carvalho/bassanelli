@@ -4,7 +4,7 @@ const auth = require("../../middleware/auth");
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken');
 const config = require('config');
-const {check, validationResult} = require('express-validator/check');
+const {check, validationResult} = require('express-validator');
 
 const User = require('../../models/User');
 
@@ -46,13 +46,13 @@ router.post('/',
         let user = await User.findOne({ email });
 
         if(!user){
-            return res.status(400).json({ errors: [{"msg" : config.get("invalidAccountError")}] });
+            return res.status(400).json({ errors: [{"msg" : config.get("errors.invalid_account")}] });
         }
 
         const isMatch = await bcrypt.compare(password, user.password);
 
         if(!isMatch){
-            res.json({ errors: [{ "msg" : config.get("invalidAccountError") }] });
+            res.json({ errors: [{ "msg" : config.get("errors.invalid_account") }] });
         }
 
         const payload = {
@@ -74,7 +74,7 @@ router.post('/',
 
     }catch(err){
         console.log(err);
-        res.status(500).send(config.get("serverError"));
+        res.status(500).send(config.get("errors.server"));
     }
 
 });
