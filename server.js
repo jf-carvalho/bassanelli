@@ -1,10 +1,13 @@
 const express = require('express');
 const connectDB = require('./config/db')
+const fileUpload = require('express-fileupload');
 
 const app = new express();
 
 //Connect DB
 connectDB()
+
+app.use(fileUpload());
 
 // Init middleware
 // With that, I'm able to get request bodies (data) in POST requests
