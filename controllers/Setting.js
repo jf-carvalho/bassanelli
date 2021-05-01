@@ -67,6 +67,11 @@ async function getfile(setting, req, res){
 		const basepath = (path.dirname(require.main.filename || process.mainModule.filename))
 
 		let file = req.files.value;
+
+		if(!["image/gif", "image/jpeg", "image/png", "image/webp"].includes(file.mimetype)){
+			return res.status(400).send('Tipo inválido de arquivo. Extensões suportadas: PNG, JPG, GIF e WEBP.');
+		}
+
 		let relative = "/storage/images/" + setting._id + '.' +  file.name.split('.')[1];
 		let uploadPath = basepath + relative;
 
