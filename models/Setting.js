@@ -2,12 +2,12 @@ const mongoose = require('mongoose');
 const SettingSchema = new mongoose.Schema({
     key: {
         type: String,
-        required: true
+        required: true,
         unique: true
     },
     value: {
         type: String,
-        required: true,
+        required: true
     },
 });
 
