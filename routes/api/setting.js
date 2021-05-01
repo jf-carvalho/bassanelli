@@ -8,6 +8,5 @@ const validator = require('../../validators/Setting')
 
 router.get('/', auth, SettingController.index);
 router.patch('/:id', auth, SettingController.update);
-// router.delete('/:id', auth, SettingController.delete);
 
 module.exports = router;
