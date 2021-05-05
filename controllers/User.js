@@ -18,14 +18,14 @@ class UserController{
 	}
 
 	async create(req, res){
-		const {name, email, password} = req.body;
+		const {name, email, password, permissions} = req.body;
 
 		try{
 
 		    let user = await User.findOne({email });
 
 		    if(user){
-		        return res.status(400).json({ errors: [{"msg" : config.get("errors.not_unique_user")}] });
+		        return res.status(400).json({ errors: [{"msg" : "Já existe um usuário cadastrado com este email."}] });
 		    }
 
 
@@ -33,6 +33,7 @@ class UserController{
 		        name, 
 		        email,
 		        password,
+		        permissions
 		    })
 
 		    const salt = await bcrypt.genSalt(10);
@@ -112,10 +113,13 @@ class UserController{
 	            },
 	            {
 	                name: req.body.name ? req.body.name : user.name,
-	                email: req.body.email ? req.body.email : user.email
+	                email: req.body.email ? req.body.email : user.email,
+	                permissions: req.body.permissions ? req.body.permissions : user.permissions,
 	            },
 	            {
-	                new: true
+	                new: true,
+	                select: '-password',
+	                populate: 'permissions'
 	            }
 	        );
 

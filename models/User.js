@@ -16,7 +16,13 @@ const UserSchema = new mongoose.Schema({
     date: {
         type: Date,
         default: Date.now
-    }
+    },
+    permissions: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "permission"
+      }
+    ]
 });
 
 module.exports = User = mongoose.model('user', UserSchema);
