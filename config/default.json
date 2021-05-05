@@ -4,10 +4,9 @@
     "errors": {
         "server": "Erro interno do servidor.",
         "invalid_account": "Conta de usuário inválida.",
-        "not_unique_user": "Já existe uma conta de usuário cadastrada com este email.",
         "invalid_token": "Token inválido.",
         "no_token": "Token não localizado. Acesso negado.",
         "no_profile": "Não existe um perfil associado a este usuário.",
-        "unauthorized": "Acesso negado."
+        "unauthorized": "Permissão negada."
     }
 }
