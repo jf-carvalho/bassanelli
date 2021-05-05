@@ -6,7 +6,9 @@ const Setting = require('../../models/Setting')
 const SettingController = require('../../controllers/Setting')
 const validator = require('../../validators/Setting')
 
-router.get('/', auth, SettingController.index);
-router.patch('/:id', auth, SettingController.update);
+const permission = require('../../middleware/permission');
+
+router.get('/', auth, permission('VIEW.SETTINGS'), SettingController.index);
+router.patch('/:id', auth, permission('MANAGE.SETTINGS'), SettingController.update);
 
 module.exports = router;
