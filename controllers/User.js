@@ -103,9 +103,9 @@ class UserController{
 	        }
 
 	        // Check user
-	        if(user.id.toString() !== req.user.id){
-	            return res.status('401').send({ msg: config.get("errors.unauthorized") });
-	        }
+	        // if(user.id.toString() !== req.user.id){
+	        //     return res.status('401').send({ msg: config.get("errors.unauthorized") });
+	        // }
 
 	        user = await User.findOneAndUpdate(
 	            {
@@ -145,9 +145,9 @@ class UserController{
 	        }
 
 	        // Check user
-	        if(user.id.toString() !== req.user.id){
-	            return res.status('401').send({ msg: config.get("errors.unauthorized") });
-	        }
+	        // if(user.id.toString() !== req.user.id){
+	        //     return res.status('401').send({ msg: config.get("errors.unauthorized") });
+	        // }
 
 	        const salt = await bcrypt.genSalt(10);
 

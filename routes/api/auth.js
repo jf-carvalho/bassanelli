@@ -9,5 +9,6 @@ const validator = require('../../validators/Auth')
 // ROUTES
 router.get('/', auth, AuthController.index);
 router.post('/', validator.login, AuthController.login);
+router.get('/logout', AuthController.logout);
 
 module.exports = router;

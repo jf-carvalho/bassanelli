@@ -7,15 +7,20 @@ module.exports = function(PERMISSION_NAME){
         try{
             let user = await User.findById(req.user.id).populate('permissions');
 
-            let names = []
-            user.permissions.map(permission => names.push(permission.name))
+            if(user.admin){
+                next();
+            }else{
+                let names = []
+                user.permissions.map(permission => names.push(permission.name))
 
-            if(!names.includes(PERMISSION_NAME)){
-                return res.status('403').send(config.get('errors.unauthorized'))
-            }
+                if(!names.includes(PERMISSION_NAME)){
+                    return res.status('403').send(config.get('errors.unauthorized'))
+                }
 
             next();
+            }
         }catch(err){
+            console.log(err.message)
             res.status('500').json({ "msg" : config.get('errors.server') });
         }
     }

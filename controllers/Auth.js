@@ -56,6 +56,10 @@ class AuthController {
 	        res.status(500).send(config.get("errors.server"));
 	    }
 	}
+
+	async logout(req, res){
+		return res.cookie('jwt', '', { maxAge: 1 });
+	}
 }
 
 module.exports = new AuthController();
