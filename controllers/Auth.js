@@ -58,7 +58,13 @@ class AuthController {
 	}
 
 	async logout(req, res){
-		return res.cookie('jwt', '', { maxAge: 1 });
+		try{
+			res.clearCookie('jwt');
+			return res.status('200').send('JWT cleaned out!');
+		}catch(err){
+			res.status(500).send(config.get("errors.server"));
+			console.log(err.message)
+		}
 	}
 }
 
