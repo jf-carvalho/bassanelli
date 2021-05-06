@@ -66,6 +66,10 @@ class AuthController {
 			console.log(err.message)
 		}
 	}
+
+	async reset_password(req, res){
+
+	}
 }
 
 module.exports = new AuthController();
