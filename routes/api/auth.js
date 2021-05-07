@@ -10,6 +10,7 @@ const validator = require('../../validators/Auth')
 router.get('/', auth, AuthController.index);
 router.post('/', validator.login, AuthController.login);
 router.get('/logout', AuthController.logout);
-router.post('/reset_password', AuthController.reset_password);
+router.post('/forgot_password', AuthController.forgot_password);
+router.post('/reset_password/:token', AuthController.reset_password);
 
 module.exports = router;

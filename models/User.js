@@ -27,6 +27,9 @@ const UserSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    reset_password_token: {
+        type: String
+    }
 });
 
 module.exports = User = mongoose.model('user', UserSchema);

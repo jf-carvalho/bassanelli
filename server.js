@@ -1,6 +1,8 @@
 const express = require('express');
 const connectDB = require('./config/db')
 const fileUpload = require('express-fileupload');
+const nodemailer = require('nodemailer')
+const SMTP = require('./config/smtp')
 
 const app = new express();
 
@@ -8,6 +10,8 @@ const app = new express();
 connectDB()
 
 app.use(fileUpload());
+
+global.mail_transporter = nodemailer.createTransport(SMTP)
 
 // Init middleware
 // With that, I'm able to get request bodies (data) in POST requests
