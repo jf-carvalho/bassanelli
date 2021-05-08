@@ -3,7 +3,13 @@ const auth = require('../middleware/auth');
 
 exports.create = [
 	auth,
-    // check()
+    check('name', 'O nome é obrigatório.')
+    	.not()
+	    .isEmpty(),
+
+	check('name', 'O nome deve conter entre 3 e 75 caracteres.')
+		.isLength({min:3, max: 75}),
+
     (req, res, next)     => {
     	const errors = check(req);
 	    if (!errors.isEmpty()) {
@@ -15,7 +21,13 @@ exports.create = [
 
 exports.update = [
 	auth,
-    // check()
+    check('name', 'O nome é obrigatório.')
+    	.not()
+	    .isEmpty(),
+
+	check('name', 'O nome deve conter entre 3 e 75 caracteres.')
+		.isLength({min:3, max: 75}),
+
     (req, res, next)     => {
     	const errors = check(req);
 	    if (!errors.isEmpty()) {
