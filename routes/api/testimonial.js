@@ -8,7 +8,7 @@ const permission = require('../../middleware/permission');
 
 router.get('/', auth, permission('VIEW.TESTIMONIAL'), TestimonialController.index);
 router.post('/', validator.create, permission('CREATE.TESTIMONIAL'), TestimonialController.create);
-router.delete('/', auth, permission('MANAGE.TESTIMONIAL'), TestimonialController.delete);
-router.put('/', validator.update, permission('MANAGE.TESTIMONIAL'), TestimonialController.update);
+router.delete('/:id', auth, permission('MANAGE.TESTIMONIAL'), TestimonialController.delete);
+router.put('/:id', validator.update, permission('MANAGE.TESTIMONIAL'), TestimonialController.update);
 
 module.exports = router;

@@ -7,8 +7,8 @@ exports.create = [
     	.not()
 	    .isEmpty(),
 
-	check('message', 'A mensagem deve conter entre 15 e 240 caracteres.')
-		.isLength({min:15, max: 240}),
+	check('message', 'A mensagem deve conter entre 15 e 900 caracteres.')
+		.isLength({min:15, max: 900}),
 
 	check('customer', 'O nome do cliente é obrigatório.')
     	.not()
@@ -32,8 +32,8 @@ exports.update = [
     	.not()
 	    .isEmpty(),
 
-	check('message', 'A mensagem deve conter entre 15 e 240 caracteres.')
-		.isLength({min:15, max: 240}),
+	check('message', 'A mensagem deve conter entre 15 e 900 caracteres.')
+		.isLength({min:15, max: 900}),
 
 	check('customer', 'O nome do cliente é obrigatório.')
     	.not()
