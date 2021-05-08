@@ -1,4 +1,4 @@
-const { check } = require('express-validator');
+const { check, validationResult } = require('express-validator');
 const auth = require('../middleware/auth');
 
 exports.create = [
@@ -19,7 +19,7 @@ exports.create = [
 		.isEmpty()
 		.custom((value,{req}) => req.body.password == value),
 (req, res, next) => {
-    const errors = check(req);
+    const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
@@ -31,7 +31,7 @@ exports.update = [
     check('email', 'Por favor, preencha com um email válido.')
 		.isEmail(),
     (req, res, next)     => {
-    	const errors = check(req);
+    	const errors = validationResult(req);
 	    if (!errors.isEmpty()) {
 	        return res.status(400).json({ errors: errors.array() });
 	    }
@@ -51,7 +51,7 @@ exports.update_password = [
         .isEmpty()
         .custom((value,{req}) => req.body.password == value),
     (req, res, next) => {
-    	const errors = check(req);
+    	const errors = validationResult(req);
 	    if (!errors.isEmpty()) {
 	        return res.status(400).json({ errors: errors.array() });
 	    }

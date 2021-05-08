@@ -1,4 +1,4 @@
-const { check } = require('express-validator');
+const { check, validationResult } = require('express-validator');
 
 exports.login = [
 	check('email', 'Por favor, preencha com um email válido.')
@@ -7,7 +7,7 @@ exports.login = [
     check('password', 'Por favor, preencha sua senha.')
         .exists(),
 (req, res, next) => {
-    const errors = check(req);
+    const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }

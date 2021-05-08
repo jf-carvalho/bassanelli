@@ -1,4 +1,4 @@
-const { check } = require('express-validator');
+const { check, validationResult } = require('express-validator');
 const auth = require('../middleware/auth');
 
 exports.create = [
@@ -11,7 +11,7 @@ exports.create = [
 		.isLength({min:3, max: 75}),
 
     (req, res, next)     => {
-    	const errors = check(req);
+    	const errors = validationResult(req);
 	    if (!errors.isEmpty()) {
 	        return res.status(400).json({ errors: errors.array() });
 	    }
@@ -29,7 +29,7 @@ exports.update = [
 		.isLength({min:3, max: 75}),
 
     (req, res, next)     => {
-    	const errors = check(req);
+    	const errors = validationResult(req);
 	    if (!errors.isEmpty()) {
 	        return res.status(400).json({ errors: errors.array() });
 	    }
