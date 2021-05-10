@@ -147,6 +147,43 @@ class ServiceCategoryController {
 	        res.status('500').send(config.get("errors.server"))
 	    }
 	}
+
+	async recover(req, res){
+		try {
+	        let category = await ServiceCategory.findById(req.params.id);
+
+	        if(!category){
+	            return res.status('404').send({ msg: "Categoria de serviço não encontrada." });
+	        }
+
+	        if(category.deleted_at === null || !category.deleted_at){
+	        	return res.status('400').send("Esta categoria de serviço já está ativa e não precisa ser recuperada.")
+	        }
+
+	        category = await ServiceCategory.findOneAndUpdate(
+	            {
+	                _id: req.params.id
+	            },
+	            {
+	                deleted_at: null
+	            },
+	            {
+	                new: true
+	            }
+	        );
+
+	        return res.json(category);
+
+	    } catch (err) {
+	        console.log(err.message);
+
+	        if(err.kind === 'ObjectId'){
+	            return res.status('404').send({ msg: "Categoria de serviço não encontrada." });
+	        }
+
+	        res.status('500').send(config.get("errors.server"))
+	    }
+	}
 }
 
 module.exports = new ServiceCategoryController();

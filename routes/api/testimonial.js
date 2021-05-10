@@ -10,5 +10,6 @@ router.get('/:deleted?', auth, permission('VIEW.TESTIMONIAL'), TestimonialContro
 router.post('/', validator.create, permission('CREATE.TESTIMONIAL'), TestimonialController.create);
 router.delete('/:id/:hard?', auth, permission('MANAGE.TESTIMONIAL'), TestimonialController.delete);
 router.put('/:id', validator.update, permission('MANAGE.TESTIMONIAL'), TestimonialController.update);
+router.patch('/:id', auth, permission('MANAGE.TESTIMONIAL'), TestimonialController.recover);
 
 module.exports = router;

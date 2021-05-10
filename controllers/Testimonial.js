@@ -127,6 +127,43 @@ class TestimonialController{
 	        res.status('500').send(config.get("errors.server"));
 		}
 	}
+
+	async recover(req, res){
+		try {
+			let testimonial = await Testimonial.findById(req.params.id);
+
+			if(!testimonial){
+				return res.status(404).send({ msg: "Depoimento não encontrado." })
+			}
+
+			if(testimonial.deleted_at === null || !testimonial.deleted_at){
+	        	return res.status('400').send("Este depoimento já está ativo e não precisa ser recuperado.")
+	        }
+
+			testimonial = await Testimonial.findOneAndUpdate(
+				{
+					_id: req.params.id
+				},
+				{
+					deleted_at: null
+				},
+				{
+					new: true
+				}
+			)
+
+			res.json(testimonial)
+
+		} catch(err) {
+			console.log(err.message);
+
+			if(err.kind === 'ObjectId'){
+	            return res.status('404').send({ msg: "Depoimento não encontrado." });
+	        }
+
+		    res.status(500).send(config.get("errors.server"));
+		}
+	}
 }
 
 
