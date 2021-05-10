@@ -4,8 +4,26 @@ const Testimonial = require('../models/Testimonial')
 
 class TestimonialController{
 	async index(req, res) {
+		const deleted = req.params.deleted ? true : false;
+
+		if(deleted && req.params.deleted  !== 'deleted' && req.params.deleted  !== 'with_deleted'){
+			res.status(500).send("Parâmetro inválido.");
+		}
+
 		try{
-			const testimonials = await Testimonial.find();
+			let testimonials;
+
+			switch(req.params.deleted) {
+				case 'deleted':
+					testimonials = await Testimonial.find({'deleted_at': {$ne: null}}).sort({'created_at': -1});
+					break;
+				case 'with_deleted':
+					testimonials = await Testimonial.find().sort({'created_at': -1});
+					break;
+				default:
+					testimonials = await Testimonial.find({'deleted_at': null}).sort({'created_at': -1});
+					break;
+			}
 
 			res.json(testimonials)
 		}catch(err){
@@ -50,7 +68,8 @@ class TestimonialController{
 				},
 				{
 					message: message ? message : testimonial.message,
-					customer: customer ? customer : testimonial.customer
+					customer: customer ? customer : testimonial.customer,
+					updated_at: Date.now()
 				},
 				{
 					new: true
@@ -71,6 +90,12 @@ class TestimonialController{
 	}
 
 	async delete(req, res) {
+		const hard = req.params.hard ? true : false;
+
+		if(hard && req.params.hard !== 'hard'){
+			res.status('500').send("Parâmetro inválido.");
+		}
+
 		try {
 			let testimonial = await Testimonial.findById(req.params.id);
 
@@ -78,7 +103,18 @@ class TestimonialController{
 				res.status(404).send({ msg: "Depoimento não encontrado." })
 			}
 
-			await testimonial.remove();
+			if(hard){
+				await testimonial.remove();
+			}else{
+				testimonial = await Testimonial.findOneAndUpdate(
+					{
+						_id: req.params.id
+					},
+					{
+						deleted_at: Date.now()
+					}
+				)
+			}
 
 		    res.json({ msg: "Depoimento excluído." });
 		} catch(e) {

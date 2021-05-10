@@ -7,6 +7,17 @@ const TestimonialSchema = new mongoose.Schema({
     customer: {
     	type: String,
     	required: true
+    },
+    created_at: {
+    	type: Date,
+    	default: Date.now
+    },
+    updated_at: {
+    	type: Date,
+    	default: Date.now
+    },
+    deleted_at: {
+    	type: Date
     }
 });
 
