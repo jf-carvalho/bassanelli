@@ -4,8 +4,27 @@ const slugify = require('slug')
 
 class ServiceCategoryController {
 	async index(req, res){
+		const deleted = req.params.deleted ? true : false;
+
+		if(deleted && req.params.deleted !== "deleted" && req.params.deleted !== "with_deleted"){
+			res.status(500).send("Parâmetro inválido.");
+		}
+
 		try{
-	        const service_categories = await ServiceCategory.find();
+			let service_categories;
+
+			switch(req.params.deleted) {
+				case 'deleted':
+					service_categories = await ServiceCategory.find({'deleted_at': {$ne: null}}).sort({"name": 1});
+					break;
+				case 'with_deleted':
+					service_categories = await ServiceCategory.find().sort({"name": 1});
+					break;
+				default:
+					service_categories = await ServiceCategory.find({'deleted_at': null}).sort({"name": 1});
+					break;
+			}
+	        
 	        res.json({ service_categories });
 	    }catch(err){
 	        console.log(err);
@@ -45,15 +64,32 @@ class ServiceCategoryController {
 	}
 
 	async delete(req, res){
+		const hard = req.params.hard ? true : false
+
+		if(hard && req.params.hard !== 'hard'){
+			res.status('500').send("Parâmetro inválido.");
+		}
+
 		try {
 
-	        const category = await ServiceCategory.findById(req.params.id);
+	        let category = await ServiceCategory.findById(req.params.id);
 
 	        if(!category){
 	            return res.status('404').send({ msg: "Categoria de serviço não encontrada." });
 	        }
 
-	        await category.remove();
+	        if(hard){
+	        	await category.remove();
+	        }else{
+	        	category = await ServiceCategory.findOneAndUpdate(
+		            {
+		                _id: req.params.id
+		            },
+		            {
+		                deleted_at: Date.now()
+		            }
+	        	);
+	        }
 
 	        res.json({ msg: "Categoria de serviço excluída." });
 
@@ -91,7 +127,8 @@ class ServiceCategoryController {
 	            {
 	                name: name ? name : category.name,
 	                slug: name ? slugify(name, '-') : category.slug,
-	                parent: parent ? parent : (category.parent ? category.parent : null)
+	                parent: parent ? parent : (category.parent ? category.parent : null),
+	                updated_at: Date.now()
 	            },
 	            {
 	                new: true
