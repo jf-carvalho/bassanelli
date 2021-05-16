@@ -25,7 +25,7 @@ class TestimonialController{
 					break;
 			}
 
-			res.json(testimonials)
+			res.json({testimonials})
 		}catch(err){
 			console.log(err.message)
 			res.status(500).send(config.get("errors.server"));

@@ -28,19 +28,12 @@ exports.create = [
 
 exports.update = [
 	auth,
-    check('message', 'A mensagem é obrigatória.')
-    	.not()
-	    .isEmpty(),
 
 	check('message', 'A mensagem deve conter entre 15 e 900 caracteres.')
-		.isLength({min:15, max: 900}),
-
-	check('customer', 'O nome do cliente é obrigatório.')
-    	.not()
-	    .isEmpty(),
+		.isLength({min:15, max: 900}).optional(),
 
 	check('customer', 'O nome do cliente deve conter entre 3 e 50 caracteres.')
-		.isLength({min:3, max: 50}),
+		.isLength({min:3, max: 50}).optional(),
 
     (req, res, next)     => {
     	const errors = validationResult(req);
