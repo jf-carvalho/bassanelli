@@ -139,11 +139,86 @@ class PostController{
 	}
 
 	async delete(req, res) {
-		
+		const hard = req.params.hard ? true : false;
+
+		if(hard && req.params.hard !== 'hard'){
+			res.status('500').send("Parâmetro inválido.");
+		}
+
+		try {
+			let post = await Post.findById(req.params.id);
+
+			if(!post){
+				res.status(404).send({ msg: "Post não encontrado." })
+			}
+
+			if(hard){
+				if(post.thumbnail){
+					let remove = await removePostThumb(post.thumbnail);
+					if(!remove){
+						return res.status(500).send("Error deleting thumbnail.")
+					}
+				}
+				
+				await post.remove();
+			}else{
+				post = await Post.findOneAndUpdate(
+					{
+						_id: req.params.id
+					},
+					{
+						deleted_at: Date.now()
+					}
+				)
+			}
+
+		    res.json({ msg: "Post excluído." });
+		} catch(e) {
+			console.log(err.message);
+
+	        if(err.kind === 'ObjectId'){
+	            return res.status('404').send({ msg: "Post não encontrado." });
+	        }
+
+	        res.status('500').send(config.get("errors.server"));
+		}
 	}
 
 	async recover(req, res){
-		
+		try {
+			let post = await Post.findById(req.params.id);
+
+			if(!post){
+				return res.status(404).send({ msg: "Post não encontrado." })
+			}
+
+			if(post.deleted_at === null || !post.deleted_at){
+	        	return res.status('400').send("Este post já está ativo e não precisa ser recuperado.")
+	        }
+
+			post = await Post.findOneAndUpdate(
+				{
+					_id: req.params.id
+				},
+				{
+					deleted_at: null
+				},
+				{
+					new: true
+				}
+			)
+
+			res.json(post)
+
+		} catch(err) {
+			console.log(err.message);
+
+			if(err.kind === 'ObjectId'){
+	            return res.status('404').send({ msg: "Post não encontrado." });
+	        }
+
+		    res.status(500).send(config.get("errors.server"));
+		}
 	}
 }
 
